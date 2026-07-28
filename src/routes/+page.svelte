@@ -1,12 +1,13 @@
 <script lang="ts">
   import { getDistance } from "geolib";
   import { onMount } from "svelte";
-  import { overpass } from "overpass-ts";
+  import { type OverpassJson, overpassJson } from "overpass-ts";
   import Speedlimit from "$lib/Speedlimit.svelte";
   import ConfigDialog from "$lib/ConfigDialog.svelte";
   import { Badge } from "$lib/components/ui/badge";
   import { slide } from "svelte/transition";
   import FullscreenToggle from "$lib/FullscreenToggle.svelte";
+  import NumberFlow from "@number-flow/svelte";
 
   interface Coordinates {
 		latitude: number;
@@ -19,27 +20,31 @@
 	let currentSpeed: number | null = $state(null);
 	let previousCoordinates: Coordinates | null = $state(null);
 	let currentCoordinates: Coordinates | null = $state(null);
-	let speedLimit = $derived<number | null>(null);
+	let speedLimit = $state<number | null>(null);
 	let streetName = $state<string | null>(null);
 
 	async function fetchCurrentSpeedlimit(coordinates: Coordinates): Promise<void> {
 		const query = `
-        [out:json][timeout:5];
+        [out:json];
         way(around:15, ${coordinates.latitude}, ${coordinates.longitude})[highway][maxspeed];
         out tags;
         `;
 
-		const res = await overpass(query, { endpoint: apiEndpoint });
-		const data = await res.json();
+    const data: OverpassJson = await overpassJson(query, { endpoint: apiEndpoint });
 
-		const road = data.elements?.find((el: { tags: { highway: string; }; }) =>
-			el.tags?.highway && !['footway', 'cycleway', 'pedestrian', 'path'].includes(el.tags.highway)
-		);
+    const road = data.elements?.find((el) => {
+      if (!('tags' in el) || !el.tags) return false;
 
-		streetName = road?.tags?.name || road?.tags?.ref || null;
+      const tags = el.tags as Record<string, string | undefined>;
+      const highway = tags.highway;
 
-		const maxspeedTag: string = road?.tags?.maxspeed;
-		speedLimit = parseInt(maxspeedTag, 10) || null;
+      return highway && !['footway', 'cycleway', 'pedestrian', 'path'].includes(highway);
+    });
+
+    const tags = road && 'tags' in road ? (road.tags as Record<string, string>) : {};
+
+    streetName = tags.name || tags.ref || null;
+    speedLimit = parseInt(tags.maxspeed) || null;
 	}
 
 	onMount(() => {
@@ -57,10 +62,10 @@
 			let metersTravelled = getDistance(previousCoordinates, currentCoordinates);
 
 			if (metersTravelled > movingThreshold) {
-				previousCoordinates = currentCoordinates;
-				currentSpeed = position.coords.speed;
-				fetchCurrentSpeedlimit(currentCoordinates);
-			}
+				currentSpeed = Math.round((position.coords.speed ?? 0) * 3.6);
+        fetchCurrentSpeedlimit(currentCoordinates);
+        previousCoordinates = currentCoordinates;
+      }
 		}, () => {
 		}, {
 			enableHighAccuracy: true
@@ -74,7 +79,6 @@
 	<ConfigDialog
 		bind:apiEndpoint
 		bind:movingThreshold />
-
   <FullscreenToggle />
 </header>
 
@@ -94,6 +98,6 @@
 
 <footer class="flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold" transition:slide>
   {#if currentSpeed}
-    {currentSpeed} km/h
+    <NumberFlow value={currentSpeed} />km/h
   {/if}
 </footer>
