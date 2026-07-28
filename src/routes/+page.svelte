@@ -5,9 +5,8 @@
   import Speedlimit from "$lib/Speedlimit.svelte";
   import ConfigDialog from "$lib/ConfigDialog.svelte";
   import { Badge } from "$lib/components/ui/badge";
-  import { Button } from "$lib/components/ui/button";
-  import { Maximize, Minimize } from "@lucide/svelte";
   import { slide } from "svelte/transition";
+  import FullscreenToggle from "$lib/FullscreenToggle.svelte";
 
   interface Coordinates {
 		latitude: number;
@@ -16,8 +15,6 @@
 
 	let movingThreshold = $state<number>(20);
 	let apiEndpoint = $state<string>(import.meta.env.VITE_API_ENDPOINT || '');
-
-	let isFullscreen = $state<boolean>(false);
 
 	let currentSpeed: number | null = $state(null);
 	let previousCoordinates: Coordinates | null = $state(null);
@@ -43,16 +40,6 @@
 
 		const maxspeedTag: string = road?.tags?.maxspeed;
 		speedLimit = parseInt(maxspeedTag, 10) || null;
-	}
-
-	function toggleFullscreen() {
-		if (isFullscreen) {
-			document.exitFullscreen();
-		} else {
-			document.documentElement.requestFullscreen();
-		}
-
-		isFullscreen = !isFullscreen;
 	}
 
 	onMount(() => {
@@ -88,19 +75,11 @@
 		bind:apiEndpoint
 		bind:movingThreshold />
 
-	<Button onclick={toggleFullscreen}
-	        size="icon-lg"
-	        variant="secondary">
-		{#if isFullscreen}
-			<Minimize />
-		{:else}
-			<Maximize />
-		{/if}
-	</Button>
+  <FullscreenToggle />
 </header>
 
 <main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
-	<div class="flex flex-col items-center gap-x-6 gap-y-2 md:flex-row" transition:slide>
+	<div transition:slide>
 		<Speedlimit {speedLimit} />
 	</div>
 
@@ -113,7 +92,8 @@
 	{/if}
 </main>
 
-<footer
-	class={`flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold ${currentSpeed == null ? 'hidden' : ''}`}>
-	{currentSpeed ?? 0} km/h
+<footer class="flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold" transition:slide>
+  {#if currentSpeed}
+    {currentSpeed} km/h
+  {/if}
 </footer>
