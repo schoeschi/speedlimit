@@ -1,12 +1,9 @@
 <script lang="ts">
-	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { getDistance } from 'geolib';
 	import { onMount } from 'svelte';
 	import Speedlimit from '$lib/Speedlimit.svelte';
 	import { overpass } from 'overpass-ts';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { Label } from '$lib/components/ui/label/index.js';
-	import { Input } from '$lib/components/ui/input/index.js';
+	import ConfigDialog from '$lib/ConfigDialog.svelte';
 
 	interface Coordinates {
 		latitude: number;
@@ -19,7 +16,7 @@
 
 	let fullscreenTrigger = $state<HTMLElement | null>(null);
 
-	let currentSpeed: number = $state(0);
+	let currentSpeed: number | null = $state(null);
 	let previousCoordinates: Coordinates | null = $state(null);
 	let currentCoordinates: Coordinates | null = $state(null);
 	let speedLimit = $derived<number>(defaultSpeed);
@@ -66,6 +63,7 @@
 
 			if (metersTravelled > movingThreshold) {
 				previousCoordinates = currentCoordinates;
+				currentSpeed = position.coords.speed;
 				fetchCurrentSpeedlimit(currentCoordinates);
 			}
 		}, () => {
@@ -79,31 +77,10 @@
 
 <main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
 	<button bind:this={fullscreenTrigger} onclick={toggleFullscreen}>Open fullscreen</button>
-
-	<Dialog.Root>
-		<Dialog.Trigger>
-			<Badge>Open config</Badge>
-		</Dialog.Trigger>
-		<Dialog.Content>
-			<Dialog.Header>
-				<Dialog.Title>Edit configuration</Dialog.Title>
-				<Dialog.Description>Set up your tachometer</Dialog.Description>
-			</Dialog.Header>
-
-			<div class="flex flex-col gap-2">
-				<Label for="defaultSpeed">Default speed</Label>
-				<Input id="defaultSpeed" type="number" bind:value={defaultSpeed} />
-			</div>
-			<div class="flex flex-col gap-2">
-				<Label for="threshold">Moving threshold in meters</Label>
-				<Input id="threshold" type="number" bind:value={movingThreshold} />
-			</div>
-			<div class="flex flex-col gap-2">
-				<Label for="apiEndpoint">API endpoint</Label>
-				<Input id="apiEndpoint" type="url" bind:value={apiEndpoint} />
-			</div>
-		</Dialog.Content>
-	</Dialog.Root>
+	<ConfigDialog
+		bind:defaultSpeed
+		bind:movingThreshold
+		bind:apiEndpoint />
 
 	<h1 class="font-bold text-4xl flex items-center gap-2">
 		On {streetName}
@@ -112,7 +89,7 @@
 	<div class="flex flex-col items-center gap-x-6 gap-y-2 md:flex-row">
 		<Speedlimit {speedLimit} />
 		<div class="text-4xl">
-			{currentSpeed}km/h
+			{currentSpeed ?? 0}km/h
 		</div>
 	</div>
 </main>

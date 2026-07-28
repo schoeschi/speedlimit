@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7639e26a-6969-470c-a914-73792539222c" name="Changes" comment="Initial commit">
+    <list default="true" id="7639e26a-6969-470c-a914-73792539222c" name="Changes" comment="code cleanup">
+      <change afterPath="$PROJECT_DIR$/src/lib/ConfigDialog.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
     </list>
@@ -17,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Speedlimit.svelte" />
+        <option value="ConfigDialog.svelte" />
       </list>
     </option>
   </component>
@@ -50,8 +52,10 @@
     "javascript.preferred.runtime.type.id": "node",
     "last_opened_file_path": "C:/Users/schule/WebstormProjects/speedlimit/src/lib/assets",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.jshint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.jshint": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
@@ -63,6 +67,9 @@
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\schule\WebstormProjects\speedlimit\src\lib\assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\schule\WebstormProjects\speedlimit\src\lib\ConfigDialog.svelte" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -81,7 +88,7 @@
       <updated>1785017826372</updated>
       <workItem from="1785017827194" duration="9885000" />
       <workItem from="1785069265817" duration="4385000" />
-      <workItem from="1785265950301" duration="1709000" />
+      <workItem from="1785265950301" duration="2403000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -91,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1785094165396</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="code cleanup">
+      <option name="closed" value="true" />
+      <created>1785267741453</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1785267741453</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,6 +114,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit" />
+    <MESSAGE value="code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="code cleanup" />
   </component>
 </project>
