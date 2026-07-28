@@ -1,26 +1,28 @@
 <script lang="ts">
 	import { getDistance } from 'geolib';
 	import { onMount } from 'svelte';
-	import Speedlimit from '$lib/Speedlimit.svelte';
 	import { overpass } from 'overpass-ts';
+	import Speedlimit from '$lib/Speedlimit.svelte';
 	import ConfigDialog from '$lib/ConfigDialog.svelte';
+	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
+	import { Maximize, Minimize } from '@lucide/svelte';
 
 	interface Coordinates {
 		latitude: number;
 		longitude: number;
 	}
 
-	let defaultSpeed = $state<number>(30);
 	let movingThreshold = $state<number>(20);
 	let apiEndpoint = $state<string>(import.meta.env.VITE_API_ENDPOINT || '');
 
-	let fullscreenTrigger = $state<HTMLElement | null>(null);
+	let isFullscreen = $state<boolean>(false);
 
 	let currentSpeed: number | null = $state(null);
 	let previousCoordinates: Coordinates | null = $state(null);
 	let currentCoordinates: Coordinates | null = $state(null);
-	let speedLimit = $derived<number>(defaultSpeed);
-	let streetName = $state<string>('current road');
+	let speedLimit = $derived<number | null>(null);
+	let streetName = $state<string | null>(null);
 
 	async function fetchCurrentSpeedlimit(coordinates: Coordinates): Promise<void> {
 		const query = `
@@ -39,12 +41,17 @@
 		streetName = road?.tags?.name || road?.tags?.ref || 'current road';
 
 		const maxspeedTag: string = road?.tags?.maxspeed;
-		speedLimit = parseInt(maxspeedTag, 10) || defaultSpeed;
+		speedLimit = parseInt(maxspeedTag, 10) || null;
 	}
 
 	function toggleFullscreen() {
-		document.documentElement.requestFullscreen();
-		fullscreenTrigger?.classList.add('hidden');
+		if (isFullscreen) {
+			document.exitFullscreen();
+		} else {
+			document.documentElement.requestFullscreen();
+		}
+
+		isFullscreen = !isFullscreen;
 	}
 
 	onMount(() => {
@@ -75,21 +82,35 @@
 	});
 </script>
 
-<main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
-	<button bind:this={fullscreenTrigger} onclick={toggleFullscreen}>Open fullscreen</button>
+<header class="fixed top-0 flex items-center justify-end w-screen p-4 gap-2">
 	<ConfigDialog
-		bind:defaultSpeed
-		bind:movingThreshold
-		bind:apiEndpoint />
+		bind:apiEndpoint
+		bind:movingThreshold />
 
-	<h1 class="font-bold text-4xl flex items-center gap-2">
-		On {streetName}
-	</h1>
+	<Button onclick={toggleFullscreen}
+	        size="icon-lg"
+	        variant="secondary">
+		{#if isFullscreen}
+			<Minimize />
+		{:else}
+			<Maximize />
+		{/if}
+	</Button>
+</header>
 
+<main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
 	<div class="flex flex-col items-center gap-x-6 gap-y-2 md:flex-row">
 		<Speedlimit {speedLimit} />
-		<div class="text-4xl">
-			{currentSpeed ?? 0}km/h
-		</div>
 	</div>
+
+	{#if streetName}
+		<Badge>
+			{streetName}
+		</Badge>
+	{/if}
 </main>
+
+<footer
+	class={`flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold ${currentSpeed == null ? 'hidden' : ''}`}>
+	{currentSpeed ?? 0} km/h
+</footer>

@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7639e26a-6969-470c-a914-73792539222c" name="Changes" comment="code cleanup">
-      <change afterPath="$PROJECT_DIR$/src/lib/ConfigDialog.svelte" afterDir="false" />
+    <list default="true" id="7639e26a-6969-470c-a914-73792539222c" name="Changes" comment="add current speed&#10;&#10;code cleanup">
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/prettier.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/ConfigDialog.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/ConfigDialog.svelte" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/lib/Speedlimit.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/lib/Speedlimit.svelte" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/+page.svelte" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/+page.svelte" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +24,7 @@
       <list>
         <option value="Speedlimit.svelte" />
         <option value="ConfigDialog.svelte" />
+        <option value="Pill" />
       </list>
     </option>
   </component>
@@ -29,6 +35,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "schoeschi"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/schoeschi/speedlimit.git",
+    "accountId": "d3d7bd84-2978-4254-8d8c-c1e493b9b8e2"
+  }
+}]]></component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -60,7 +78,8 @@
     "nodejs_interpreter_path": "node",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "C:\\Users\\schule\\WebstormProjects\\speedlimit\\node_modules\\prettier",
-    "settings.editor.selected.configurable": "actions.on.save",
+    "rearrange.code.on.save": "true",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "C:\\Users\\schule\\WebstormProjects\\speedlimit\\node_modules\\typescript\\lib"
   }
 }]]></component>
@@ -88,7 +107,7 @@
       <updated>1785017826372</updated>
       <workItem from="1785017827194" duration="9885000" />
       <workItem from="1785069265817" duration="4385000" />
-      <workItem from="1785265950301" duration="2403000" />
+      <workItem from="1785265950301" duration="4814000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -106,7 +125,23 @@
       <option name="project" value="LOCAL" />
       <updated>1785267741453</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add current speed&#10;&#10;code cleanup">
+      <option name="closed" value="true" />
+      <created>1785268428424</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1785268428424</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add current speed&#10;&#10;code cleanup">
+      <option name="closed" value="true" />
+      <created>1785268446199</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1785268446199</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -115,6 +150,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit" />
     <MESSAGE value="code cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="code cleanup" />
+    <MESSAGE value="add current speed&#10;&#10;code cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="add current speed&#10;&#10;code cleanup" />
   </component>
 </project>
