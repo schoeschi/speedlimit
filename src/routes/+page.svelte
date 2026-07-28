@@ -7,6 +7,7 @@
   import { Badge } from "$lib/components/ui/badge";
   import { Button } from "$lib/components/ui/button";
   import { Maximize, Minimize } from "@lucide/svelte";
+  import { slide } from "svelte/transition";
 
   interface Coordinates {
 		latitude: number;
@@ -99,14 +100,16 @@
 </header>
 
 <main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
-	<div class="flex flex-col items-center gap-x-6 gap-y-2 md:flex-row">
+	<div class="flex flex-col items-center gap-x-6 gap-y-2 md:flex-row" transition:slide>
 		<Speedlimit {speedLimit} />
 	</div>
 
 	{#if streetName}
-		<Badge>
-			{streetName}
-		</Badge>
+    <div transition:slide>
+      <Badge>
+        {streetName}
+      </Badge>
+    </div>
 	{/if}
 </main>
 
