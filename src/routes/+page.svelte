@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { getDistance } from 'geolib';
-	import { onMount } from 'svelte';
-	import { overpass } from 'overpass-ts';
-	import Speedlimit from '$lib/Speedlimit.svelte';
-	import ConfigDialog from '$lib/ConfigDialog.svelte';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Button } from '$lib/components/ui/button';
-	import { Maximize, Minimize } from '@lucide/svelte';
+  import { getDistance } from "geolib";
+  import { onMount } from "svelte";
+  import { overpass } from "overpass-ts";
+  import Speedlimit from "$lib/Speedlimit.svelte";
+  import ConfigDialog from "$lib/ConfigDialog.svelte";
+  import { Badge } from "$lib/components/ui/badge";
+  import { Button } from "$lib/components/ui/button";
+  import { Maximize, Minimize } from "@lucide/svelte";
 
-	interface Coordinates {
+  interface Coordinates {
 		latitude: number;
 		longitude: number;
 	}
@@ -38,7 +38,7 @@
 			el.tags?.highway && !['footway', 'cycleway', 'pedestrian', 'path'].includes(el.tags.highway)
 		);
 
-		streetName = road?.tags?.name || road?.tags?.ref || 'current road';
+		streetName = road?.tags?.name || road?.tags?.ref || null;
 
 		const maxspeedTag: string = road?.tags?.maxspeed;
 		speedLimit = parseInt(maxspeedTag, 10) || null;
