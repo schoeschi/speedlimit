@@ -10,6 +10,7 @@
   import NumberFlow from "@number-flow/svelte";
   import { browser } from "$app/env";
   import { Capacitor } from "@capacitor/core";
+  import { Preferences } from "@capacitor/preferences";
 
   interface Coordinates {
 		latitude: number;
@@ -18,14 +19,30 @@
 
   const isNative = browser && Capacitor.isNativePlatform();
 
-	let movingThreshold = $state<number>(20);
-	let apiEndpoint = $state<string>(import.meta.env.VITE_API_ENDPOINT || '');
+  let apiEndpoint = $state<string>('');
+  let movingThreshold = $state<number>(20);
 
 	let currentSpeed: number | null = $state(null);
 	let previousCoordinates: Coordinates | null = $state(null);
 	let currentCoordinates: Coordinates | null = $state(null);
 	let speedLimit = $state<number | null>(null);
 	let streetName = $state<string | null>(null);
+
+  Preferences.get({ key: 'apiEndpoint' }).then(({value}) => {
+    if (value) apiEndpoint = value;
+  });
+
+  Preferences.get({ key: 'movingThreshold' }).then(({ value }) => {
+    if (value !== null) movingThreshold = parseInt(value);
+  });
+
+  $effect(() => {
+    Preferences.set({ key: 'apiEndpoint', value: apiEndpoint });
+  });
+
+  $effect(() => {
+    Preferences.set({ key: 'movingThreshold', value: String(movingThreshold) });
+  });
 
 	async function fetchCurrentSpeedlimit(coordinates: Coordinates): Promise<void> {
 		const query = `
