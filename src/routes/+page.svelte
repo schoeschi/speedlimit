@@ -28,12 +28,12 @@
 	let speedLimit = $state<number | null>(null);
 	let streetName = $state<string | null>(null);
 
-  Preferences.get({ key: 'apiEndpoint' }).then(({value}) => {
+  Preferences.get({ key: 'apiEndpoint' }).then(({ value }) => {
     if (value) apiEndpoint = value;
   });
 
   Preferences.get({ key: 'movingThreshold' }).then(({ value }) => {
-    if (value !== null) movingThreshold = parseInt(value);
+    if (value) movingThreshold = parseInt(value);
   });
 
   $effect(() => {
