@@ -61,8 +61,8 @@
 
 			let metersTravelled = getDistance(previousCoordinates, currentCoordinates);
 
-			if (metersTravelled > movingThreshold) {
-				currentSpeed = Math.round((position.coords.speed ?? 0) * 3.6);
+      currentSpeed = Math.round((position.coords.speed ?? 0) * 3.6);
+      if (metersTravelled > movingThreshold) {
         fetchCurrentSpeedlimit(currentCoordinates);
         previousCoordinates = currentCoordinates;
       }
