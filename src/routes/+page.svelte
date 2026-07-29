@@ -98,6 +98,8 @@
 
 <footer class="flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold" transition:slide>
   {#if currentSpeed}
-    <NumberFlow value={currentSpeed} />km/h
+    <NumberFlow
+      value={currentSpeed}
+      suffix=" km/h" />
   {/if}
 </footer>
