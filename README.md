@@ -1,6 +1,6 @@
 # thruut Auto
 
-thruut Auto is a mobile app designed to be used as a car dashboard. It is built on the Overpass API.
+thruut Auto is a mobile app designed to be used as a car dashboard. It is built using the Overpass API and Capacitor.
 
 ## Key Features
 
