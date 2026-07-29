@@ -6,7 +6,7 @@
 </script>
 
 <div
-	class="flex justify-center items-center h-48 w-48 rounded-full border-[#F00001] aspect-square border-30 text-6xl">
+	class="flex justify-center items-center h-48 w-48 rounded-full border-red-500 aspect-square border-20 text-7xl">
 	{#if speedLimit}
     <NumberFlow value={speedLimit} />
 	{:else}

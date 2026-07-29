@@ -70,19 +70,21 @@
 
 	onMount(() => {
 		const watchId = navigator.geolocation.watchPosition((position) => {
-			currentCoordinates = {
+      currentSpeed = Math.round((position.coords.speed ?? 0) * 3.6);
+
+      if (apiEndpoint.trim() === '') return;
+
+      currentCoordinates = {
 				latitude: position.coords.latitude,
 				longitude: position.coords.longitude
 			};
-			if (!previousCoordinates) {
-				previousCoordinates = currentCoordinates;
-				fetchCurrentSpeedlimit(currentCoordinates);
-				return;
+      if (!previousCoordinates) {
+        previousCoordinates = currentCoordinates;
+        fetchCurrentSpeedlimit(currentCoordinates);
+        return;
 			}
 
 			let metersTravelled = getDistance(previousCoordinates, currentCoordinates);
-
-      currentSpeed = Math.round((position.coords.speed ?? 0) * 3.6);
       if (metersTravelled > movingThreshold) {
         fetchCurrentSpeedlimit(currentCoordinates);
         previousCoordinates = currentCoordinates;
@@ -112,7 +114,7 @@
 
 	{#if streetName}
     <div transition:slide>
-      <Badge>
+      <Badge class="text-blue-600">
         {streetName}
       </Badge>
     </div>
