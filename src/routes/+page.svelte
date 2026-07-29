@@ -8,11 +8,15 @@
   import { slide } from "svelte/transition";
   import FullscreenToggle from "$lib/FullscreenToggle.svelte";
   import NumberFlow from "@number-flow/svelte";
+  import { browser } from "$app/env";
+  import { Capacitor } from "@capacitor/core";
 
   interface Coordinates {
 		latitude: number;
 		longitude: number;
 	}
+
+  const isNative = browser && Capacitor.isNativePlatform();
 
 	let movingThreshold = $state<number>(20);
 	let apiEndpoint = $state<string>(import.meta.env.VITE_API_ENDPOINT || '');
@@ -79,7 +83,9 @@
 	<ConfigDialog
 		bind:apiEndpoint
 		bind:movingThreshold />
-  <FullscreenToggle />
+  {#if !isNative}
+    <FullscreenToggle />
+  {/if}
 </header>
 
 <main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
