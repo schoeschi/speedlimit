@@ -49,7 +49,7 @@ out/
 # gitignore template for the SvelteKit, frontend web component framework
 # website: https://kit.svelte.dev/
 
-.svelte-kit/
+.svelte-kit
 package
 node_modules
 
