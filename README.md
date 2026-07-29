@@ -1,42 +1,38 @@
-# sv
+# thruut Auto
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+thruut Auto is a mobile app designed to be used as a car dashboard. It is built on the Overpass API.
 
-## Creating a project
+## Key Features
 
-If you're seeing this, you've probably already done this step. Congrats!
+### Road Safety
 
-```sh
-# create a new project
-npx sv create my-app
-```
+* See speed limits
+* See current speed
+* See current road name
 
-To recreate this project with the same configuration:
+### Customization
 
-```sh
-# recreate this project
-npx sv@0.16.6 create --template minimal --types ts --add prettier eslint tailwindcss="plugins:none" sveltekit-adapter="adapter:auto" --install npm ./
-```
+* Re-fetch road infos based on distance moved
+* Set custom Overpass API endpoints
+* Dark mode
 
-## Developing
+## Setup
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Quick installation
 
-```sh
-npm run dev
+To install thruut Auto on your Android smartphone, download the APK from the latest release page and install it.
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+### Self-built
 
-## Building
+#### Prerequisites
 
-To create a production version of your app:
+* Android Studio
+* Internet Access
 
-```sh
-npm run build
-```
+#### Step-by-step Guide
 
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+1. Clone the repository and install all dependencies with `npm install`
+2. Generate the app assets with `npx capacitor-assets generate --android`
+3. Open the Capacitor App in Android Studio with `npx cap open android`
+4. Synchronise any changes made with `npx cap sync`
+5. Build the APK inside Android Studio
