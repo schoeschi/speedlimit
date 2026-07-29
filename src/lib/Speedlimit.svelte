@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Skeleton } from '$lib/components/ui/skeleton';
+  import { Skeleton } from "$lib/components/ui/skeleton";
   import NumberFlow from "@number-flow/svelte";
 
-	let { speedLimit } = $props();
+  let { speedLimit } = $props();
 </script>
 
 <div
