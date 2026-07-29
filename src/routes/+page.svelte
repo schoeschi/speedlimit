@@ -44,7 +44,13 @@
     Preferences.set({ key: 'movingThreshold', value: String(movingThreshold) });
   });
 
-	async function fetchCurrentSpeedlimit(coordinates: Coordinates): Promise<void> {
+  $effect(() => {
+    if (apiEndpoint.trim() !== '' && currentCoordinates) {
+      fetchCurrentSpeedLimit(currentCoordinates);
+    }
+  });
+
+	async function fetchCurrentSpeedLimit(coordinates: Coordinates): Promise<void> {
 		const query = `
         [out:json];
         way(around:15, ${coordinates.latitude}, ${coordinates.longitude})[highway][maxspeed];
@@ -80,13 +86,13 @@
 			};
       if (!previousCoordinates) {
         previousCoordinates = currentCoordinates;
-        fetchCurrentSpeedlimit(currentCoordinates);
+        fetchCurrentSpeedLimit(currentCoordinates);
         return;
 			}
 
 			let metersTravelled = getDistance(previousCoordinates, currentCoordinates);
       if (metersTravelled > movingThreshold) {
-        fetchCurrentSpeedlimit(currentCoordinates);
+        fetchCurrentSpeedLimit(currentCoordinates);
         previousCoordinates = currentCoordinates;
       }
 		}, () => {
