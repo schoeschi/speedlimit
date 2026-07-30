@@ -112,19 +112,19 @@
 		<Speedlimit {speedLimit} />
 	</div>
 
-	{#if streetName}
-    <div transition:slide>
-      <Badge class="text-blue-500" variant="secondary">
-        {streetName}
-      </Badge>
-    </div>
-	{/if}
-</main>
+	<section class="flex gap-y-4 gap-y-12 items-center justify-center md:flex-col">
+		{#if streetName}
+			<div transition:slide>
+				<Badge class="text-blue-500" variant="secondary">
+					{streetName}
+				</Badge>
+			</div>
+		{/if}
 
-<footer class="flex justify-center fixed w-screen p-4 bottom-0 text-center text-5xl font-bold" transition:slide>
-  {#if currentSpeed}
-    <NumberFlow
-      value={currentSpeed}
-      suffix=" km/h" />
-  {/if}
-</footer>
+		{#if currentSpeed}
+			<NumberFlow
+				value={currentSpeed}
+				suffix=" km/h" />
+		{/if}
+	</section>
+</main>
