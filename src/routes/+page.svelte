@@ -107,24 +107,34 @@
   {/if}
 </header>
 
-<main class="flex flex-col w-screen h-screen items-center justify-center gap-4 text-center">
-	<div transition:slide>
-		<Speedlimit {speedLimit} />
-	</div>
-
-	<section class="flex gap-y-4 gap-y-12 items-center justify-center md:flex-col">
-		{#if streetName}
-			<div transition:slide>
-				<Badge class="text-blue-500" variant="secondary">
-					{streetName}
-				</Badge>
-			</div>
-		{/if}
+<main class="flex flex-col w-screen h-screen items-center justify-center gap-6 text-center">
+	<div class="flex flex-col md:flex-row items-center justify-center gap-6">
+		<div transition:slide>
+			<Speedlimit {speedLimit} />
+		</div>
 
 		{#if currentSpeed}
-			<NumberFlow
-				value={currentSpeed}
-				suffix=" km/h" />
+			<div class="hidden sm:block text-5xl font-bold" transition:slide>
+				<NumberFlow
+					value={currentSpeed}
+					suffix=" km/h" />
+			</div>
 		{/if}
-	</section>
+	</div>
+
+	{#if streetName}
+		<div transition:slide>
+			<Badge class="text-blue-500" variant="secondary">
+				{streetName}
+			</Badge>
+		</div>
+	{/if}
 </main>
+
+{#if currentSpeed}
+	<footer class="sm:hidden fixed bottom-0 w-screen p-4 flex justify-center text-center text-5xl font-bold" transition:slide>
+		<NumberFlow
+			value={currentSpeed}
+			suffix=" km/h" />
+	</footer>
+{/if}
