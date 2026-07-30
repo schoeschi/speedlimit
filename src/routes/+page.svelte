@@ -114,7 +114,7 @@
 
 			{#if streetName}
 				<div transition:slide>
-					<Badge class="text-blue-500" variant="secondary">
+					<Badge class="text-blue-500 text-xl " variant="secondary">
 						{streetName}
 					</Badge>
 				</div>
