@@ -44,12 +44,6 @@
     Preferences.set({ key: 'movingThreshold', value: String(movingThreshold) });
   });
 
-  $effect(() => {
-    if (apiEndpoint.trim() !== '' && currentCoordinates) {
-      fetchCurrentSpeedLimit(currentCoordinates);
-    }
-  });
-
 	async function fetchCurrentSpeedLimit(coordinates: Coordinates): Promise<void> {
 		const query = `
         [out:json];
