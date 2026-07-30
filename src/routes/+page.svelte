@@ -108,27 +108,30 @@
 </header>
 
 <main class="flex flex-col w-screen h-screen items-center justify-center gap-6 text-center">
-	<div class="flex flex-col md:flex-row items-center justify-center gap-6">
-		<div transition:slide>
+	<div class="flex flex-col md:flex-row items-center justify-center gap-16">
+		<div transition:slide class="flex flex-col items-center justify-center gap-4">
 			<Speedlimit {speedLimit} />
+
+			{#if streetName}
+				<div transition:slide>
+					<Badge class="text-blue-500" variant="secondary">
+						{streetName}
+					</Badge>
+				</div>
+			{/if}
 		</div>
 
 		{#if currentSpeed}
-			<div class="hidden sm:block text-5xl font-bold" transition:slide>
+			<div
+				class="hidden sm:block text-7xl font-bold overflow-hidden whitespace-nowrap min-w-0"
+				transition:slide={{ axis: 'x', duration: 300 }}
+			>
 				<NumberFlow
 					value={currentSpeed}
 					suffix=" km/h" />
 			</div>
 		{/if}
 	</div>
-
-	{#if streetName}
-		<div transition:slide>
-			<Badge class="text-blue-500" variant="secondary">
-				{streetName}
-			</Badge>
-		</div>
-	{/if}
 </main>
 
 {#if currentSpeed}

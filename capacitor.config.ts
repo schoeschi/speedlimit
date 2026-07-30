@@ -7,6 +7,9 @@ const config: CapacitorConfig = {
   plugins: {
     SplashScreen: {},
   },
+  android: {
+    allowMixedContent: true
+  }
 };
 
 export default config;
